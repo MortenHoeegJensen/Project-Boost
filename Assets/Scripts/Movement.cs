@@ -10,12 +10,18 @@ public class Movement : MonoBehaviour
     float rotationThrust = 100f;
 
     [SerializeField]
+    AudioClip mainEngine;
+
+    [SerializeField]
     AudioSource audioSource;
+
+    bool isTransitioning = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        // Nedenstående fungerer ik, men ved ikke om det er fordi AudioSource ligger på mainCamera, eller så har jeg overset noget?
         //audioSource = GetComponent<AudioSource>(); // Har også lavet forbindelsen inde i unity, så den her er måske unødvendig
     }
 
@@ -34,7 +40,7 @@ public class Movement : MonoBehaviour
 
             if (!audioSource.isPlaying)
             {
-                audioSource.Play();
+                audioSource.PlayOneShot(mainEngine);
             }
 
 

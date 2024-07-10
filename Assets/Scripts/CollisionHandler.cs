@@ -1,41 +1,80 @@
 using System.IO.Compression;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField]
+    float delayForRestartLevel = 1f;
+
+    [SerializeField]
+    float delayForNextLevel = 1f;
+
+    [SerializeField]
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip crashSound;
+
+    [SerializeField]
+    AudioClip finishSound;
+
+    bool isTransitioning = false;
+
+
     private void OnCollisionEnter(Collision other)
     {
 
-        switch (other.gameObject.tag)
+        if (isTransitioning) {  return; }
+
+            switch (other.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("This is friendly");
                 break;
 
-            //case "Fuel":
-            //    Debug.Log("You picked up fuel");
-            //    break;
-
             case "Finish":
                 Debug.Log("Gz you made it");
-                LoadNextLevel();
+
+                StartFinishSequence();
+                //LoadNextLevel();
                 break;
 
             default:
                 Debug.Log("Oh no, something bad happens");
 
-                ReloadLevel();
+                StartCrashSequence();
 
                 break;
-
         }
+    }
+
+    void StartFinishSequence()
+    {
+        audioSource.Stop();
+        isTransitioning = true;
+        audioSource.PlayOneShot(finishSound);
+        GetComponent<Movement>().enabled = false;
+        Invoke("LoadNextLevel", delayForNextLevel);
+    }
+
+    void StartCrashSequence()
+    {
+        audioSource.Stop();
+        isTransitioning = true;
+        audioSource.PlayOneShot(crashSound);
+        GetComponent<Movement>().enabled = false;
+        Invoke("ReloadLevel", delayForRestartLevel);
+
     }
 
     void ReloadLevel()
     {
+
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+
 
     }
 
@@ -50,7 +89,6 @@ public class CollisionHandler : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
 
 
-        SceneManager.LoadScene(currentSceneIndex + 1);
 
     }
 }

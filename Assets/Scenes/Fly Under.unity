@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -594,6 +594,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6331347051166845721, guid: b5f4430144e83d84081f0e6a398dd85d, type: 3}
+      propertyPath: mainEngine
+      value: 
+      objectReference: {fileID: 8300000, guid: 82790090d5a37f848a32229729e18474, type: 3}
+    - target: {fileID: 6331347051166845721, guid: b5f4430144e83d84081f0e6a398dd85d, type: 3}
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 963194229}
@@ -607,7 +611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7749343528355843018, guid: b5f4430144e83d84081f0e6a398dd85d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.82
+      value: 4.44
       objectReference: {fileID: 0}
     - target: {fileID: 7749343528355843018, guid: b5f4430144e83d84081f0e6a398dd85d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -641,6 +645,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8098212263772364921, guid: b5f4430144e83d84081f0e6a398dd85d, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 963194229}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
