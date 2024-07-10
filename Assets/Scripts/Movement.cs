@@ -15,6 +15,15 @@ public class Movement : MonoBehaviour
     [SerializeField]
     AudioSource audioSource;
 
+    [SerializeField]
+    ParticleSystem boosterParticle;
+
+    [SerializeField]
+    ParticleSystem leftBooster;
+
+    [SerializeField]
+    ParticleSystem rightBooster;
+
     bool isTransitioning = false;
 
     // Start is called before the first frame update
@@ -34,7 +43,7 @@ public class Movement : MonoBehaviour
 
     void ProcessThrust()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
         {
             rigidbody.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime); // Time.deltaTime gør det frame independent
 
@@ -43,12 +52,16 @@ public class Movement : MonoBehaviour
                 audioSource.PlayOneShot(mainEngine);
             }
 
+            if (!boosterParticle.isPlaying)
+            {
+                boosterParticle.Play();
+            }
 
-            //Debug.Log("Pressed Space");
         }
         else
         {
             audioSource.Stop();
+            boosterParticle.Stop();
         }
     }
 
@@ -57,13 +70,26 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             ApplyRotation(rotationThrust);
-            //Debug.Log("Pressed Left");
+            if (!rightBooster.isPlaying)
+            {
+                rightBooster.Play();
+            }
+           
+
         }
 
         else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             ApplyRotation(-rotationThrust);
-            //Debug.Log("Pressed Right");
+            if (!leftBooster.isPlaying)
+            {
+                leftBooster.Play();
+            }
+        }
+        else
+        {
+            leftBooster.Stop();
+            rightBooster.Stop();
         }
     }
 
