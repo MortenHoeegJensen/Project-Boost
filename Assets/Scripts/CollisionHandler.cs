@@ -5,36 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
-    [SerializeField]
-    float delayForRestartLevel = 1f;
+    [SerializeField] float delayForRestartLevel = 1f;
 
-    [SerializeField]
-    float delayForNextLevel = 1f;
+    [SerializeField] float delayForNextLevel = 1f;
 
-    [SerializeField]
-    AudioSource audioSource;
+    [SerializeField] AudioSource audioSource;
 
-    [SerializeField]
-    AudioClip crashSound;
+    [SerializeField] AudioClip crashSound;
 
-    [SerializeField]
-    AudioClip finishSound;
+    [SerializeField] AudioClip finishSound;
 
-    [SerializeField]
-    ParticleSystem crashParticles;
+    [SerializeField] ParticleSystem crashParticles;
 
-    [SerializeField]
-    ParticleSystem finishParticles;
+    [SerializeField] ParticleSystem finishParticles;
 
     bool isTransitioning = false;
+    bool collisionDisable = false;
 
+    private void Update()
+    {
+        RespondToDebugKeys();
+    }
 
     private void OnCollisionEnter(Collision other)
     {
 
-        if (isTransitioning) {  return; }
+        if (isTransitioning || collisionDisable) { return; }
 
-            switch (other.gameObject.tag)
+        switch (other.gameObject.tag)
         {
             case "Friendly":
                 Debug.Log("This is friendly");
@@ -96,8 +94,23 @@ public class CollisionHandler : MonoBehaviour
             nextSceneIndex = 0;
         }
         SceneManager.LoadScene(nextSceneIndex);
+    }
 
+    void RespondToDebugKeys()
+    {
+        if (Input.GetKey(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKey(KeyCode.C))
+        {
+            Debug.Log("C has been pushed");
+            collisionDisable = !collisionDisable; // Toggle collision
+        }
+    }
 
+    void RemoveCollision()
+    {
 
     }
 }

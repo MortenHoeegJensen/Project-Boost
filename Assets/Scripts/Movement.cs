@@ -4,25 +4,19 @@ public class Movement : MonoBehaviour
 {
 
     Rigidbody rigidbody;
-    [SerializeField]
-    float mainThrust = 1000.0f;
-    [SerializeField]
-    float rotationThrust = 100f;
+    [SerializeField] float mainThrust = 1000.0f;
 
-    [SerializeField]
-    AudioClip mainEngine;
+    [SerializeField] float rotationThrust = 100f;
 
-    [SerializeField]
-    AudioSource audioSource;
+    [SerializeField] AudioClip mainEngine;
 
-    [SerializeField]
-    ParticleSystem boosterParticle;
+    [SerializeField] AudioSource audioSource;
 
-    [SerializeField]
-    ParticleSystem leftBooster;
+    [SerializeField] ParticleSystem boosterParticle;
 
-    [SerializeField]
-    ParticleSystem rightBooster;
+    [SerializeField] ParticleSystem leftBooster;
+
+    [SerializeField] ParticleSystem rightBooster;
 
     bool isTransitioning = false;
 
@@ -43,7 +37,7 @@ public class Movement : MonoBehaviour
 
     void ProcessThrust()
     {
-        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             StartThrusting();
 
@@ -114,6 +108,7 @@ public class Movement : MonoBehaviour
             rightBooster.Play();
         }
     }
+   
 
     private void ApplyRotation(float rotationThisFrame)
     {
